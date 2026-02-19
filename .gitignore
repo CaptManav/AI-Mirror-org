@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.env/
+venv/
+.DS_Store
+.idea/
+.env
+gmail_credentials.json
+credentials.json
