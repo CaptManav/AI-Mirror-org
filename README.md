@@ -62,9 +62,6 @@ AI-Mirror-org/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-
-
-
 ---
 
 ## ⚙ Installation
