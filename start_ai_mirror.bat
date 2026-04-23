@@ -5,17 +5,17 @@ echo =====================================
 echo        Starting AI Mirror...
 echo =====================================
 
-REM Go to project directory (IMPORTANT)
-cd /d "C:\Users\MANAV\Desktop\AI Mirror v1"
+REM Automatically move to this script's directory
+cd /d "%~dp0"
 
-REM Activate venv
+REM Activate virtual environment
 call venv\Scripts\activate
 
-REM Start FastAPI server in new window
-start "AI Mirror Server" cmd /k "cd /d C:\Users\MANAV\Desktop\AI Mirror v1 && venv\Scripts\activate && uvicorn app.main:app --host 127.0.0.1 --port 8000"
+REM Start FastAPI server
+start "AI Mirror Server" cmd /k "cd /d %~dp0 && venv\Scripts\activate && uvicorn app.main:app --host 127.0.0.1 --port 8000"
 
-REM Start Email Worker in new window
-start "AI Mirror Worker" cmd /k "cd /d C:\Users\MANAV\Desktop\AI Mirror v1 && venv\Scripts\activate && python -m app.email_worker"
+REM Start Email Worker
+start "AI Mirror Worker" cmd /k "cd /d %~dp0 && venv\Scripts\activate && python -m app.email_worker"
 
 REM Wait 3 seconds
 timeout /t 3 >nul

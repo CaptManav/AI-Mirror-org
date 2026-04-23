@@ -80,8 +80,7 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 # --- models ---
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 chroma = chromadb.PersistentClient(path="data/chroma_db")
-collection = chroma.get_collection("style_memory")
-
+collection = chroma.get_or_create_collection("style_memory")
 
 def generate_reply(message):
 
