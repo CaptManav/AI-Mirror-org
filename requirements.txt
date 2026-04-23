@@ -1,12 +1,40 @@
+# fastapi==0.110.0
+# uvicorn==0.29.0
+# python-dotenv==1.0.1
+# python-multipart==0.0.9
+# groq==0.4.2
+# chromadb==0.4.24
+# sentence-transformers==2.6.1
+# google-api-python-client==2.122.0
+# google-auth==2.29.0
+# google-auth-oauthlib==1.2.0
+# google-auth-httplib2==0.2.0
+# requests==2.31.0
 fastapi==0.110.0
-uvicorn==0.29.0
+uvicorn[standard]==0.29.0
+
 python-dotenv==1.0.1
 python-multipart==0.0.9
+requests==2.31.0
+
+# 🔥 AI / LLM
 groq==0.4.2
+
+# 🔍 Embeddings / Memory
 chromadb==0.4.24
 sentence-transformers==2.6.1
+
+# 📧 Gmail API
 google-api-python-client==2.122.0
 google-auth==2.29.0
 google-auth-oauthlib==1.2.0
 google-auth-httplib2==0.2.0
-requests==2.31.0
+
+# 📸 Instagram (instagrapi)
+instagrapi==2.0.0
+
+# 📱 WhatsApp (Meta Graph API uses requests, already included)
+
+# ⚙️ Utilities
+pydantic==2.6.4
+typing-extensions>=4.8.0

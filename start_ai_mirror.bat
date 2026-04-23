@@ -5,22 +5,32 @@ echo =====================================
 echo        Starting AI Mirror...
 echo =====================================
 
-REM Go to project directory (IMPORTANT)
+REM Go to project directory
 cd /d "C:\Users\MANAV\Desktop\AI Mirror v1"
 
-REM Activate venv
+REM Activate virtual environment
 call venv\Scripts\activate
 
-REM Start FastAPI server in new window
-start "AI Mirror Server" cmd /k "cd /d C:\Users\MANAV\Desktop\AI Mirror v1 && venv\Scripts\activate && uvicorn app.main:app --host 127.0.0.1 --port 8000"
+echo Starting FastAPI Server...
+start "AI Mirror Server" cmd /k ^
+"cd /d C:\Users\MANAV\Desktop\AI Mirror v1 && ^
+venv\Scripts\activate && ^
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload"
 
-REM Start Email Worker in new window
-start "AI Mirror Worker" cmd /k "cd /d C:\Users\MANAV\Desktop\AI Mirror v1 && venv\Scripts\activate && python -m app.email_worker"
+echo Starting Worker...
+start "AI Mirror Worker" cmd /k ^
+"cd /d C:\Users\MANAV\Desktop\AI Mirror v1 && ^
+venv\Scripts\activate && ^
+python -m app.email_worker"
 
-REM Wait 3 seconds
-timeout /t 3 >nul
+REM Wait a bit for server to start
+timeout /t 4 >nul
 
-REM Open browser
+echo Opening Dashboard...
 start http://127.0.0.1:8000
+
+echo =====================================
+echo        AI Mirror is running!
+echo =====================================
 
 pause
