@@ -4,7 +4,10 @@ from fastapi.responses import PlainTextResponse
 from app.draft_store import load_drafts, save_drafts
 from app.email_reader import get_service, send_gmail_reply
 import app.config as config
-
+import re
+def extract_email(raw):
+    match = re.search(r"<(.+?)>", raw)
+    return match.group(1) if match else raw
 app = FastAPI()
 @app.get("/webhook")
 async def verify_webhook(request: Request):
@@ -285,27 +288,41 @@ def send_draft(draft_id: str):
     for d in drafts:
         if d["id"] == draft_id and d["status"] == "PENDING":
 
+            sender = d.get("sender") or d.get("from")
+
+            if not sender:
+                print("❌ Missing sender, skipping:", d)
+                continue
+
+            channel = d.get("channel", "gmail")
+
             # 📧 GMAIL
-            if d["channel"] == "gmail":
+            if channel == "gmail":
                 service = get_service()
                 send_gmail_reply(
                     service,
                     original_msg_id=d.get("message_id"),
                     thread_id=d.get("thread_id"),
-                    to_email=d["sender"],
+                    to_email=sender,
                     subject=d.get("subject", ""),
                     body_text=d["draft"]
                 )
 
-            # 💬 WHATSAPP (ADD THIS HERE 👇)
-            elif d["channel"] == "whatsapp":
+            # 💬 WHATSAPP
+            elif channel == "whatsapp":
                 from app.whatsapp_sender import send_whatsapp_message
-                send_whatsapp_message(d["sender"], d["draft"])
+                send_whatsapp_message(sender, d["draft"])
 
-            # 📸 INSTAGRAM (optional — usually auto sent already)
-            elif d["channel"] == "instagram":
+            # 📸 INSTAGRAM
+            elif channel == "instagram":
                 from app.instagram_handler import send_instagram_reply
-                send_instagram_reply(d["thread_id"], d["draft"])
+                thread_id = d.get("thread_id")
+
+                if not thread_id:
+                    print("❌ Missing thread_id for Instagram:", d)
+                    continue
+
+                send_instagram_reply(thread_id, d["draft"])
 
             # ✅ mark as sent
             d["status"] = "SENT"
