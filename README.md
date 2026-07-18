@@ -21,10 +21,10 @@ It integrates with Gmail, retrieves past writing patterns using vector search (C
 - 🔄 Background email worker
 - 🖱 One-click launcher (Windows .bat)
 
----
+
 
 ## 🏗 System Architecture
-
+---
 Gmail Inbox
 ↓
 Email Worker (background loop)
