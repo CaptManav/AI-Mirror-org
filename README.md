@@ -58,14 +58,29 @@ Review → Edit → Send
 
 ## 🖼️ Screenshots
 
-> Add 2–3 screenshots here.
+## 🖼️ Product Preview
 
-- Dashboard
-- Draft generation
-- Tone selector
+### Dashboard
 
-*(This section is worth more than 500 words.)*
+Unified inbox for Gmail, WhatsApp, and Instagram with AI-generated drafts.
 
+![](screenshots/Screenshot%20(487).png)
+
+---
+
+### Draft Generation
+
+Users can review and edit AI-generated replies before sending.
+
+![](screenshots/Screenshot%20(486).png)
+
+---
+
+### Memory Retrieval
+
+Vector memory retrieves previous writing patterns to generate replies consistent with the user's style.
+
+![](screenshots/Screenshot%20(485).png)
 ---
 
 ## 🛠️ Tech Stack
