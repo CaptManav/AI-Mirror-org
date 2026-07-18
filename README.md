@@ -1,188 +1,138 @@
 # 🪞 AI Mirror
 
-AI Mirror is an intelligent email assistant that learns your writing style and automatically generates context-aware replies.
+> An AI-powered communication assistant that learns your writing style and generates personalized Gmail reply drafts.
 
-It integrates with Gmail, retrieves past writing patterns using vector search (ChromaDB), evaluates message risk, and generates human-like drafts powered by LLaMA 3 via Groq — all accessible through a clean FastAPI dashboard.
+AI Mirror combines LLMs, semantic memory, and Gmail integration to automate email replies while preserving a user's unique tone. Instead of producing generic responses, it retrieves writing patterns from previous emails and generates context-aware drafts that users can review before sending.
 
 ---
 
-## 🚀 Features
+## ✨ Why I Built It
 
-- 📬 Gmail integration (read + threaded replies)
-- 🧠 Writing style memory using ChromaDB (vector embeddings)
-- 🤖 AI-generated drafts via Groq (LLaMA 3)
-- ⚠ Risk detection before sending replies
-- 🎨 Clean FastAPI dashboard with:
-  - Draft preview
-  - Edit before send
-  - Tone selector (Professional / Friendly / Direct / Formal)
-  - Status tracking (Pending / Sent / Discarded)
-  - Auto-refresh
-- 🔄 Background email worker
-- 🖱 One-click launcher (Windows .bat)
+Most AI email tools generate replies that sound like AI.
 
+I wanted to build something that writes **like the user**, not **for the user**.
 
+The goal was to create a system that learns communication patterns over time, retrieves relevant writing examples using vector search, and produces personalized drafts while keeping the human in control.
 
-## 🏗 System Architecture
 ---
-Gmail Inbox
-↓
-Email Worker (background loop)
-↓
+
+## 🚀 Key Features
+
+- 📧 Gmail integration with threaded replies
+- 🧠 Long-term writing style memory using ChromaDB
+- 🤖 Personalized draft generation with LLaMA 3 (Groq)
+- ⚠️ Reply confidence & risk analysis
+- ✍️ Edit-before-send workflow
+- 🎭 Multiple response tones
+- 🔄 Background email processing
+- 📊 FastAPI dashboard
+
+---
+
+## 🏗️ How It Works
+
+```text
+Incoming Email
+      │
+      ▼
+Background Worker
+      │
+      ▼
 Risk Analysis
-↓
-Style Retrieval (ChromaDB embeddings)
-↓
-Groq LLaMA 3 Generation
-↓
-Draft Saved (JSON)
-↓
-FastAPI Dashboard
-↓
-Edit → Approve → Send → Gmail Thread Reply
-
+      │
+      ▼
+Retrieve Similar Writing Style
+   (ChromaDB)
+      │
+      ▼
+LLaMA 3 (Groq)
+      │
+      ▼
+Draft Generated
+      │
+      ▼
+Review → Edit → Send
+```
 
 ---
 
-## 📂 Project Structure
+## 🖼️ Screenshots
 
-AI-Mirror/
-├── app/
-│   ├── main.py              # FastAPI backend & dashboard
-│   ├── generate.py          # Personalized reply generation
-│   ├── email_reader.py      # Gmail integration
-│   ├── email_worker.py      # Background email processing
-│   ├── draft_store.py       # Draft management
-│   ├── risk.py              # Reply confidence & risk checks
-│   └── config.py            # Application configuration
-│
-├── requirements.txt
-├── README.md
-└── start_ai_mirror.bat
-## ⚙ Installation
+> Add 2–3 screenshots here.
 
-### 1️⃣ Clone Repository
+- Dashboard
+- Draft generation
+- Tone selector
+
+*(This section is worth more than 500 words.)*
+
+---
+
+## 🛠️ Tech Stack
+
+**Backend**
+- FastAPI
+- Python
+
+**AI**
+- Groq (LLaMA 3)
+- Sentence Transformers
+- ChromaDB
+
+**Integrations**
+- Gmail API
+
+---
+
+## ⚡ Quick Start
+
+```bash
 git clone https://github.com/CaptManav/AI-Mirror-org.git
 cd AI-Mirror-org
 
----
-
-### 2️⃣ Create Virtual Environment
 python -m venv venv
-
-Activate:
-
-**Windows**
-venv\Scripts\activate
-
----
-
-### 3️⃣ Install Dependencies
 pip install -r requirements.txt
+```
+
+Configure:
+
+- Gmail API credentials
+- GROQ_API_KEY
+
+Run:
+
+```bash
+uvicorn app.main:app --reload
+python -m app.email_worker
+```
 
 ---
 
-## 🔑 Environment Setup
+## 📂 Repository Structure
 
-### Set Groq API Key (Permanent – Windows)
-setx GROQ_API_KEY "your_api_key_here"
-
-Restart terminal after running this command.
-
----
-
-## 📬 Gmail API Setup
-
-1. Go to Google Cloud Console  
-2. Create a new project  
-3. Enable **Gmail API**  
-4. Create OAuth 2.0 credentials  
-5. Download `credentials.json`  
-6. Place `credentials.json` in the project root  
-
-On first run, authentication will generate `token.json`.
-
-⚠ Do NOT upload `credentials.json` or `token.json` to GitHub.
-
----
-
-## ▶ Running the Application
-
-### Option 1 – Manual (Recommended for Development)
-
-Terminal 1: uvicorn app.main:app --reload
-
-Terminal 2: python -m app.email_worker
-
-Open in browser: http://127.0.0.1:8000
-
----
-
-### Option 2 – One Click (Windows)
-
-Double-click: start_ai_mirror.bat
-
-This will:
-- Activate virtual environment
-- Start FastAPI server
-- Start email worker
-- Open browser automatically
-
----
-
-## 🎨 Dashboard Capabilities
-
-- View incoming messages
-- See AI-generated drafts
-- Select reply tone
-- Edit drafts before sending
-- Send threaded Gmail replies
-- Track status (Pending / Sent / Discarded)
-
----
-
-## 🔒 Security Notes
-
-Do NOT commit:
-
-- `credentials.json`
-- `token.json`
-- `data/chroma_db/`
-- `data/drafts.json`
-- Any API keys
-
-These files should remain ignored via `.gitignore`.
-
----
-
-## 🧠 Tech Stack
-
-- FastAPI
-- Groq (LLaMA 3)
-- ChromaDB
-- Sentence Transformers
-- Gmail API
-- Python 3.10+
+```text
+app/
+├── main.py
+├── generate.py
+├── email_reader.py
+├── email_worker.py
+├── draft_store.py
+├── risk.py
+└── config.py
+```
 
 ---
 
 ## 🚀 Future Improvements
 
-- Multi-user authentication
-- Docker containerization
-- Cloud deployment (Render / AWS / GCP)
+- Multi-user support
+- Docker
 - React frontend
-- Background task queue (Celery)
-- Real-time updates via WebSockets
+- WebSockets
+- Celery task queue
 
 ---
 
 ## 👤 Author
 
-Built as an experimental AI automation system to simulate a digital communication substitute capable of learning and responding in the user's writing style.
-
----
-
-## 📜 License
-
-This project is for educational and experimental purposes.
+Built independently as a product experiment exploring personalized AI communication and autonomous workflow automation.
