@@ -46,24 +46,19 @@ Edit → Approve → Send → Gmail Thread Reply
 
 ## 📂 Project Structure
 
-AI-Mirror-org/
-│
+AI-Mirror/
 ├── app/
-│ ├── main.py # FastAPI dashboard
-│ ├── generate.py # LLM + embedding logic
-│ ├── email_worker.py # Background Gmail processor
-│ ├── draft_store.py # Draft persistence
-│ ├── email_reader.py # Gmail API integration
-│ ├── risk.py # Risk scoring logic
-│ └── config.py # Global configuration (tone)
+│   ├── main.py              # FastAPI backend & dashboard
+│   ├── generate.py          # Personalized reply generation
+│   ├── email_reader.py      # Gmail integration
+│   ├── email_worker.py      # Background email processing
+│   ├── draft_store.py       # Draft management
+│   ├── risk.py              # Reply confidence & risk checks
+│   └── config.py            # Application configuration
 │
-├── data/ # Runtime data (ignored in Git)
-├── start_ai_mirror.bat # One-click launcher (Windows)
 ├── requirements.txt
-├── .gitignore
-└── README.md
----
-
+├── README.md
+└── start_ai_mirror.bat
 ## ⚙ Installation
 
 ### 1️⃣ Clone Repository
